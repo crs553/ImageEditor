@@ -4,7 +4,7 @@ import PIL as p
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from typing import Optional
-from PIL import Image
+from PIL import Image, ImageTk
 
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -18,14 +18,14 @@ from PIL import Image
 def getImgLink() -> Optional[str]:
     Tk().withdraw()
     filename = askopenfilename()
-    if filename is None:
-        return None
     return filename
 
 
 def openImage(filename: str):
-    with Image.open(filename) as im:
-        return im
+    return ImageTk.PhotoImage(Image.open(filename))
+    # img = Image
+    # with Image.open(filename) as im:
+    #     return im
 
 
 def getRed(im_data):
