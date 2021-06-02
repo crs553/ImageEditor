@@ -2,50 +2,31 @@ import tkinter
 from tkinter import *
 import Backend
 from tkinter.filedialog import askopenfile
+from functools import partial
 
+root = Tk()
+root.title("Open Image")
+root.geometry("200x300")
 
-class ImgWindow:
-    def __init__(self, master : tkinter.Tk):
-        self.master = master
-        imgPath = Backend.getImgLink()
-        if imgPath == ():
-            raise FileNotFoundError
-        win = Toplevel(master)
-        win.geometry(1920,1080)
-        img = Backend.openImage(imgPath)
-        canvas = Canvas(master)
-        canvas.pack()
-        canvas.create_image(10,10,iamge = imgPath,anchor = NW)
+back_Img = None
+top = None
+photo = None
 
 
 
-    def openImgSeq(self):
-        imgPath = Backend.getImgLink()
-        print(imgPath)
-        if imgPath == ():
-            pass
-        else:
-            self.button.destroy()
-            img = Backend.openImage(imgPath)
-            canvas = Canvas(self.master, bg='black')
-            canvas.pack(expand=YES, fill=BOTH)
-            canvas.create_image(20, 20, image=img, anchor=NW)
-            self.master.update()
+def openImg():
+    global back_Img
+    back_Img = Backend.ImgOperations()
+    top = Toplevel()
+    btn = Button(top, text="Hello")
+    top.mainloop()
 
-    def dispImg(self):
-        pass
-
-    def close(self):
-        self.master.destroy()
+open_btn = Button(root, text="Open Image", command=lambda: openImg())
+open_btn.grid(row=0, column=0)
 
 
-def main():
-    root = Tk()
-    root.title("Image Editor")
-    button = Button(root, text="Open File", command=lambda: ImgWindow(root))
-    button.pack(pady=300, padx=300)
-    root.mainloop()
 
+root.mainloop()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
